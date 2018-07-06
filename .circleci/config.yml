@@ -36,6 +36,7 @@ jobs:
       - run: gcloud docker -- push gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
       - run: gcloud config set compute/zone ${CLOUDSDK_COMPUTE_ZONE}
       - run: gcloud --quiet container clusters get-credentials $CLUSTER_NAME
+      - run: ls -a
       - run: ./deploy.sh
 workflows:
   version: 2
