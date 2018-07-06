@@ -45,8 +45,4 @@ workflows:
       jobs:
         - test-routine
         - build-deploy-routine:
-            requires:
-            - test-routine
-                  
-
 
