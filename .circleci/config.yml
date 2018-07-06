@@ -38,8 +38,7 @@ jobs:
       - setup_remote_docker
       - run: docker build --rm=false -t gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1 .
       - run: gcloud docker -- push gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
-      - run: kubectl rolling-update tamuhack-site --image=gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
-      # - run: kubectl patch deployment tamuhack-site -p '"{'spec':{'template':{'spec':{'containers':[{'name':'tamuhack-site','image':'"gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:${CIRCLE_SHA1}"'}]}}}}"'
+      - run: kubectl set image deployment/tamuhack-site tamuhack-site=gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
 workflows:
   version: 2
   test_and_build:
