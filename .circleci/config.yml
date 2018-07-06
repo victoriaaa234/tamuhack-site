@@ -39,6 +39,6 @@ workflows:
       - test-routine
       - push-image-routine:
           requires:
-            - test-locally
+            - test-routine
 
 
