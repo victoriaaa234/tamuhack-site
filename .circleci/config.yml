@@ -44,8 +44,8 @@ workflows:
           requires:
             - test-routine
       - deploy-routine:
-              requires:
-                - build-routine
+          requires:
+            - build-routine
                   
 
 
