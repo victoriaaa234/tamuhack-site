@@ -35,11 +35,10 @@ jobs:
     machine: true
     working_directory: ~/repo
     steps:
+      - run: ls
       - run: ./deploy.sh
 workflows:
   version: 2
-  test-and-build-image:
-    jobs:
       - test-routine
       - build-routine:
           requires:
