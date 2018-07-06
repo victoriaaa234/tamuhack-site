@@ -22,7 +22,7 @@ jobs:
           key: v1-dependencies-{{ checksum "tamuhack-site/package.json" }}
 
       # run tests!
-      - run: cd tamuhack-test && npm test
+      - run: cd tamuhack-site && npm test && cd ..
   push-image:
     machine: true
     steps:
