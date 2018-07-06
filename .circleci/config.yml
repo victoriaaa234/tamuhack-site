@@ -32,9 +32,8 @@ jobs:
       - run: gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
       - run: gcloud --quiet config set project ${GCP_PROJECT}
   deploy-routine:
-    docker:
-      - image: latest
-    working_directory: /tmp/my-project  
+    machine: true
+    working_directory: ~/repo
     steps:
       - run: ./deploy.sh
 workflows:
