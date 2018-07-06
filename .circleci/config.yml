@@ -36,8 +36,8 @@ workflows:
   version: 2
   test-and-build-image:
     jobs:
-      - test-locally
-      - push-image:
+      - test-routine
+      - push-image-routine:
           requires:
             - test-locally
 
