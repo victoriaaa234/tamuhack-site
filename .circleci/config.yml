@@ -23,7 +23,7 @@ jobs:
 
       # run tests!
       - run: cd tamuhack-site && npm test && cd ..
-  push-image-routine:
+  build-routine:
     machine: true
     steps:
       - checkout
@@ -31,14 +31,25 @@ jobs:
       - run: docker build --rm=false -t gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1 .
       - run: gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
       - run: gcloud --quiet config set project ${GCP_PROJECT}
-      - run: gcloud docker -- push gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
+  deploy-routine:
+    docker:
+      - image: latest
+    working_directory: /tmp/my-project  
+    steps:
+      - run:
+        name: Deploy Master to GKE
+        command: ./deploy.sh
 workflows:
   version: 2
   test-and-build-image:
     jobs:
       - test-routine
-      - push-image-routine:
+      - build-routine:
           requires:
             - test-routine
+      - deploy-routine:
+              requires:
+                - build-routine
+                  
 
 
