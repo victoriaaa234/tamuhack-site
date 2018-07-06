@@ -29,8 +29,6 @@ jobs:
       - checkout
       - run: echo ${GOOGLE_AUTH} > ${HOME}/gcp-key.json
       - run: docker build --rm=false -t gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1 .
-      - run: gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
-      - run: gcloud --quiet config set project ${GCP_PROJECT}
   deploy-routine:
     machine: true
     working_directory: ~/repo
@@ -40,6 +38,7 @@ jobs:
       - run: echo ${GOOGLE_AUTH} > ${HOME}/gcp-key.json
       - run: gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
       - run: gcloud --quiet config set project ${GCP_PROJECT}
+      - run: gcloud docker -- push gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
       - run: ./deploy.sh
 workflows:
   version: 2
