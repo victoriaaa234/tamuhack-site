@@ -24,7 +24,8 @@ jobs:
       # run tests!
       - run: cd tamuhack-site && npm test && cd ..
   build-deploy-routine:
-    machine: true
+    docker:
+      - image: google/cloud-sdk
     working_directory: ~/repo
     steps:
       - checkout
