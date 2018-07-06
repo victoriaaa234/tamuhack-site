@@ -44,5 +44,5 @@ workflows:
   test_and_build:
       jobs:
         - test-routine
-        - build-deploy-routine:
+        - build-deploy-routine
 
