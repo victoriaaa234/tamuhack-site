@@ -43,8 +43,8 @@ workflows:
   test_and_build:
       jobs:
         - build-deploy-routine:
-          filters:
-            branches:
-              only: master
+            filters:
+              branches:
+                only: master
         - test-routine
 
