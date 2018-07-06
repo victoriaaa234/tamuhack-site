@@ -36,9 +36,7 @@ jobs:
       - image: latest
     working_directory: /tmp/my-project  
     steps:
-      - run:
-        name: Deploy Master to GKE
-        command: ./deploy.sh
+      - run: ./deploy.sh
 workflows:
   version: 2
   test-and-build-image:
