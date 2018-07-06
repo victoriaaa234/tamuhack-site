@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test-locally:
+  test-routine:
     docker:
       - image: circleci/node:8.9
     working_directory: ~/repo
@@ -23,7 +23,7 @@ jobs:
 
       # run tests!
       - run: cd tamuhack-site && npm test && cd ..
-  push-image:
+  push-image-routine:
     machine: true
     steps:
       - checkout
