@@ -39,13 +39,16 @@ jobs:
       - run: ls
       - run: ./deploy.sh
 workflows:
-  - test-routine
-  - build-routine:
-      requires:
+  version: 2
+  test_and_build:
+      jobs:
         - test-routine
-  - deploy-routine:
-      requires:
-        - build-routine
+        - build-routine:
+            requires:
+            - test-routine
+        - deploy-routine:
+            requires:
+            - build-routine
                   
 
 
