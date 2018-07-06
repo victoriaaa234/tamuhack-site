@@ -31,12 +31,13 @@ jobs:
       - checkout
       - run: chmod +x deploy.sh
       - run: echo ${GOOGLE_AUTH} > ${HOME}/gcp-key.json
-      - run: docker build --rm=false -t gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1 .
       - run: gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
       - run: gcloud --quiet config set project ${GCP_PROJECT}
-      - run: gcloud docker -- push gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
       - run: gcloud config set compute/zone ${CLOUDSDK_COMPUTE_ZONE}
       - run: gcloud --quiet container clusters get-credentials $CLUSTER_NAME
+      - setup_remote_docker
+      - run: docker build --rm=false -t gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1 .
+      - run: gcloud docker -- push gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
       - run: sudo gcloud components install kubectl
       - run: kubectl patch deployment tamuhack-site -p '{"spec":{"template":{"spec":{"containers":[{"name":"tamuhack-site","image":"gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1"}]}}}}'
 workflows:
