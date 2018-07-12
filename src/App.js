@@ -9,7 +9,14 @@ import './app.css'
 const App = () => (
   <Router>
     <div>
-        This is the new tamuhack site.
+      <nav>
+        <Link exact to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/blog">Blog</Link>
+      </nav>
+      <div className="content">
+        <Routes />
+      </div>
     </div>
   </Router>
 )

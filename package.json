@@ -7,8 +7,7 @@
     "start": "react-static start",
     "stage": "react-static build --staging",
     "build": "react-static build",
-    "serve": "serve dist -p 3000",
-    "test": "echo hello"
+    "serve": "serve dist -p 3000"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -16,7 +15,7 @@
     "react-dom": "^16.0.0",
     "react-hot-loader": "^4.0.0-beta.21",
     "react-router": "^4.2.0",
-    "react-static": "^5.9.7"
+    "react-static": "^5"
   },
   "devDependencies": {
     "eslint-config-react-tools": "1.x.x",

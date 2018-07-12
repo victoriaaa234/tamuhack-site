@@ -1,0 +1,8 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tamuhack-ingress
+spec:
+  backend:
+    serviceName: tamuhack-site-service
+    servicePort: 80
