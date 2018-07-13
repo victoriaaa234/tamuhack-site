@@ -4,5 +4,5 @@ metadata:
   name: tamuhack-ingress
 spec:
   backend:
-    serviceName: tamuhack-site-service
+   serviceName: tamuhack-site-service
     servicePort: 80
