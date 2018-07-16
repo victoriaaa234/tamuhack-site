@@ -1,19 +1,40 @@
 version: 2
 jobs:
+  test-routine:
+    docker:
+      - image: circleci/node:8.9
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "tamuhack-site/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: npm install tamuhack-site
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "tamuhack-site/package.json" }}
+
+      # run tests!
+      - run: cd tamuhack-site && npm test && cd ..
   build-deploy-routine:
     docker:
       - image: google/cloud-sdk
     working_directory: ~/repo
     steps:
       - checkout
-      - run: ls
       - run: echo ${GOOGLE_AUTH} > ${HOME}/gcp-key.json
       - run: gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
       - run: gcloud --quiet config set project ${GCP_PROJECT}
       - run: gcloud config set compute/zone ${CLOUDSDK_COMPUTE_ZONE}
       - run: gcloud --quiet container clusters get-credentials $CLUSTER_NAME
       - setup_remote_docker
-      - run: ls
       - run: docker build --rm=false -t gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1 .
       - run: gcloud docker -- push gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
       - run: kubectl set image deployment/tamuhack-site tamuhack-site=gcr.io/${GCP_PROJECT}/${IMAGE_NAME}:$CIRCLE_SHA1
@@ -22,7 +43,8 @@ workflows:
   test_and_build:
       jobs:
         - build-deploy-routine:
-          filters:
-            branches:
-              only: master
+            filters:
+              branches:
+                only: master
+        - test-routine
 

@@ -2,11 +2,8 @@ import axios from 'axios'
 
 export default {
   getSiteData: () => ({
-   title: 'React Static',
+    title: 'React Static',
   }),
-  basePath: '/',
-  siteRoot: 'http://35.241.1.203/',
-  homepage: './',
   getRoutes: async () => {
     const { data: posts } = await axios.get('https://jsonplaceholder.typicode.com/posts')
     return [
