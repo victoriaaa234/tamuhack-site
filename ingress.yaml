@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tamuhack-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "tamuhack-static-ip"
+spec:
+  backend:
+    serviceName: tamuhack-site-service
+    servicePort: 80
