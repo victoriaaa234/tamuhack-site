@@ -5,7 +5,7 @@ import './app.css'
 
 const App = () => (
     <div>
-	Hello is this working yo! this is a new version bitch.
+	New tamuhack site!
     </div>
 )
 
