@@ -5,7 +5,7 @@ import './app.css'
 
 const App = () => (
     <div>
-	New tamuhack site!
+	New tamuhack site! This is good. Update. update
     </div>
 )
 
