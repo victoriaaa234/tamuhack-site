@@ -5,7 +5,7 @@ export default {
    title: 'React Static',
   }),
   basePath: '/',
-  siteRoot: 'http://localhost:3001/',
+  siteRoot: 'https://tamuhack.org',
   homepage: './',
   getRoutes: async () => {
     const { data: posts } = await axios.get('https://jsonplaceholder.typicode.com/posts')
