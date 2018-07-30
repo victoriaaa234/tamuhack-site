@@ -5,6 +5,18 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: "tamuhack-static-ip"
 spec:
-  backend:
-    serviceName: tamuhack-site-service
-    servicePort: 80
+  rules:
+  - host: tamuhack.org
+    http:
+      paths:
+        - path: /
+        - backend:
+            serviceName: tamuhack-site-service
+            servicePort: 80
+  - host: app.tamuhack.org
+    http:
+      paths:
+        - path: /
+        - backend:
+            serviceName: tamuhack-quill-service
+            servicePort: 80
